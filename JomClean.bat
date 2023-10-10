@@ -10,7 +10,7 @@ CLS
 :MENU
 CLS
 
-ECHO =========== JOMCLEAN v1.1 ===========
+ECHO =========== JOMCLEAN v1.2 ===========
 ECHO -------------------------------------
 ECHO 1.  System File Check
 ECHO 2.  DISM Restore Health
@@ -21,11 +21,11 @@ ECHO 6.  Clear Credential Manager
 ECHO 7.  Unmap All Network Drives
 ::ECHO 8.  UNUSED
 ::ECHO 9.  UNUSED
+ECHO 0.  Block Windows 11 Upgrade
 ECHO -------------------------------------
-ECHO 0.  Info
+ECHO A.  About JomClean
 ECHO -------------------------------------
 ECHO ==========PRESS 'Q' TO QUIT==========
-ECHO.
 
 SET INPUT=
 SET /P INPUT=Please select a number:
@@ -39,7 +39,8 @@ IF /I '%INPUT%'=='6' GOTO Selection6
 IF /I '%INPUT%'=='7' GOTO Selection7
 ::IF /I '%INPUT%'=='8' GOTO Selection8
 ::IF /I '%INPUT%'=='9' GOTO Selection9
-IF /I '%INPUT%'=='0' GOTO Selection0
+::IF /I '%INPUT%'=='0' GOTO Selection0
+IF /I '%INPUT%'=='A' GOTO About
 IF /I '%INPUT%'=='Q' GOTO Quit
 
 CLS
@@ -56,7 +57,7 @@ GOTO MENU
 
 :Selection1
 
-ECHO =========== JOMCLEAN v1.1 ===========
+ECHO =========== JOMCLEAN v1.2 ===========
 ECHO -------------------------------------
 ECHO ----- Running System File Check -----
 
@@ -70,7 +71,7 @@ GOTO MENU
 
 :Selection2
 
-ECHO =========== JOMCLEAN v1.1 ===========
+ECHO =========== JOMCLEAN v1.2 ===========
 ECHO -------------------------------------
 ECHO ---- Running DISM Restore Health ----
 
@@ -84,7 +85,7 @@ GOTO MENU
 
 :Selection3
 
-ECHO =========== JOMCLEAN v1.1 ===========
+ECHO =========== JOMCLEAN v1.2 ===========
 ECHO -------------------------------------
 ECHO -- Running DISM Component Cleanup ---
 
@@ -98,7 +99,7 @@ GOTO MENU
 
 :Selection4
 
-ECHO =========== JOMCLEAN v1.1 ===========
+ECHO =========== JOMCLEAN v1.2 ===========
 ECHO -------------------------------------
 ECHO ---- Running Windows Update Fix -----
 
@@ -132,7 +133,7 @@ GOTO MENU
 
 :Selection5
 
-ECHO =========== JOMCLEAN v1.1 ===========
+ECHO =========== JOMCLEAN v1.2 ===========
 ECHO -------------------------------------
 ECHO ----- Running Group Policy Sync -----
 
@@ -143,19 +144,20 @@ ECHO ===== PRESS ANY KEY TO CONTINUE =====
 
 :Selection6
 
-ECHO =========== JOMCLEAN v1.1 ===========
+ECHO =========== JOMCLEAN v1.2 ===========
 ECHO -------------------------------------
 ECHO ---- Clearing Credential Manager ---- 
 
 @ECHO OFF
 for /F "tokens=1,2 delims= " %G in ('cmdkey /list ^| findstr Target') do cmdkey /delete %H
 
+ECHO ----- Credential Manager Cleared ----
 ECHO -------------------------------------
 ECHO ===== PRESS ANY KEY TO CONTINUE =====
 
 :Selection7
 
-ECHO =========== JOMCLEAN v1.1 ===========
+ECHO =========== JOMCLEAN v1.2 ===========
 ECHO -------------------------------------
 ECHO ------ Unmapping Network Drives -----
 
@@ -166,26 +168,37 @@ ECHO ===== PRESS ANY KEY TO CONTINUE =====
 
 :Selection8
 
-and so on
-
 :Selection9
-
-
 
 :Selection0
 
-ECHO =========== JOMCLEAN v1.1 ===========
+ECHO =========== JOMCLEAN v1.2 ===========
+ECHO -------------------------------------
+ECHO ---- Blocking Windows 11 Upgrade ----
+
+@ECHO OFF
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersion /t REG_DWORD /d 1
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v ProductVersion /t REG_SZ /d "Windows 10"
+
+ECHO ----- Windows 11 Upgrade Blocked ----
+ECHO -------------------------------------
+ECHO ===== PRESS ANY KEY TO CONTINUE =====
+
+:About
+
+ECHO =========== JOMCLEAN v1.2 ===========
 ECHO -------------------------------------
 ECHO            About JOMCLEAN
 ECHO -------------------------------------
-ECHO   JOMCLEAN is an all-in-one Windows    
+ECHO   JOMCLEAN is an all-in-one Windows   
 ECHO utility to clean up and repair the
 ECHO most common Windows issues.
 ECHO -------------------------------------
 ECHO   More options coming soon!
 ECHO -------------------------------------
-ECHO   For new users, run the options in
-ECHO order, starting from option 1.
+ECHO   For new users, run the first 4 
+ECHO options in order, starting from
+ECHO option 1.
 ECHO -------------------------------------
 ECHO ===== PRESS ANY KEY TO CONTINUE =====
 
@@ -195,7 +208,7 @@ GOTO MENU
 :Quit
 CLS
 
-ECHO =========== JOMCLEAN v1.1 ===========
+ECHO =========== JOMCLEAN v1.2 ===========
 ECHO -------------------------------------
 ECHO ---- Thanks for using JOMCLEAN! -----
 ECHO -------------------------------------
