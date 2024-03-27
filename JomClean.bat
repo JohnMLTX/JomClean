@@ -161,8 +161,10 @@ ECHO =========== JOMCLEAN v1.2 ===========
 ECHO -------------------------------------
 ECHO ------ Unmapping Network Drives -----
 
+@ECHO OFF
 net use *  /delete /y
 
+ECHO ------ Network Drives Unmapped ------
 ECHO -------------------------------------
 ECHO ===== PRESS ANY KEY TO CONTINUE =====
 
@@ -178,7 +180,9 @@ ECHO ---- Blocking Windows 11 Upgrade ----
 
 @ECHO OFF
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersion /t REG_DWORD /d 1
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /t REG_SZ /d 21H2
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v ProductVersion /t REG_SZ /d "Windows 10"
+gpupdate /force
 
 ECHO ----- Windows 11 Upgrade Blocked ----
 ECHO -------------------------------------
